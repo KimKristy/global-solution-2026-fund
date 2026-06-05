@@ -221,7 +221,7 @@ report/
 ## 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/KimKristy/GS_1SEM_Dynamic_Programming.git
+git clone https://github.com/KimKristy/global-solution-2026-fund.git
 ```
 
 ## 2. Acessar a pasta
