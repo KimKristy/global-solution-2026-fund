@@ -227,7 +227,7 @@ git clone https://github.com/KimKristy/GS_1SEM_Dynamic_Programming.git
 ## 2. Acessar a pasta
 
 ```bash
-cd GS-1SEM-DynPro
+cd global-solution-2026-fund
 ```
 
 ## 3. Instalar dependências
