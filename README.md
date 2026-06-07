@@ -42,7 +42,7 @@ O projeto possui os seguintes objetivos:
 # Estrutura do Projeto
 
 ```text
-GS-1SEM-DynPro/
+global-solution-2026-fund/
 │
 ├── data/
 │   ├── raw/
