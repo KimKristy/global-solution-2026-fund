@@ -1,6 +1,6 @@
 # Global Solution 2026 - Economia Espacial - Dynamic Programming
 
-## Monitoramento de Riscos Ambientais com Árvores, Grafos e Algoritmos - Enchentes RS
+## Monitoramento de Riscos Ambientais com Árvores, Grafos e Algoritmos
 
 ### Integrantes do Grupo
 
@@ -13,81 +13,30 @@
 
 # Descrição do Projeto
 
-As enchentes ocorridas no Rio Grande do Sul em 2024 evidenciaram a importância de sistemas computacionais capazes de auxiliar na tomada de decisão durante situações de emergência.
+Este projeto foi desenvolvido para a Global Solution 2026 com o objetivo de aplicar estruturas de dados e algoritmos estudados na disciplina de Dynamic Programming em cenários de monitoramento de riscos ambientais.
 
-Este projeto propõe a modelagem de uma rede de municípios afetados pelas enchentes utilizando estruturas de dados e algoritmos estudados na disciplina de Dynamic Programming.
+O sistema foi instanciado em dois cenários distintos:
 
-O sistema utiliza:
+### Cenário 1 – Enchentes no Rio Grande do Sul
 
-* Árvore Binária de Busca (BST) para organização dos municípios por índice de risco;
-* Grafos ponderados para representação das conexões entre municípios;
-* Algoritmo Guloso (Dijkstra) para determinação de rotas de menor custo;
-* Algoritmo de Força Bruta com Backtracking para comparação de desempenho;
-* Ferramentas de monitoramento para análise de tempo de execução e consumo de memória.
+Baseado nos impactos causados pelas enchentes ocorridas no estado do Rio Grande do Sul, modelando municípios afetados e suas conexões logísticas.
+
+### Cenário 2 – Seca na Região MATOPIBA
+
+Representando municípios da região MATOPIBA (Maranhão, Tocantins, Piauí e Bahia), área frequentemente afetada por períodos de estiagem e estresse hídrico.
+
+Como não foram disponibilizadas bases oficiais padronizadas para os experimentos da atividade, foram utilizados dados sintéticos construídos com valores plausíveis para fins acadêmicos, preservando as características dos cenários analisados.
 
 ---
 
 # Objetivos
 
-O projeto possui os seguintes objetivos:
-
-* Organizar municípios por nível de risco utilizando BST;
-* Modelar a malha de municípios através de grafos ponderados;
-* Encontrar rotas ótimas para deslocamento de equipes de resgate;
-* Comparar uma abordagem exaustiva (Força Bruta) com uma abordagem gulosa (Dijkstra);
-* Avaliar desempenho computacional através de métricas experimentais.
-
----
-
-# Estrutura do Projeto
-
-```text
-global-solution-2026-fund/
-│
-├── data/
-│   ├── raw/
-│   │   └── municipios_rs.py
-│   │
-│   └── processed/
-│       └── grafo_rs.py
-│
-├── notebooks/
-│   └── analise_resultados.ipynb
-│
-├── report/
-│   ├── grafo_municipios.png
-│   ├── tempo_x_n.png
-│   └── gap_otimalidade.png
-│
-├── src/
-│   ├── data_structures.py
-│   ├── greedy.py
-│   ├── brute_force.py
-│   ├── graph_generator.py
-│   ├── performance_monitor.py
-│   └── visualizations.py
-│
-├── tests/
-│   ├── test_algorithms.py
-│   ├── teste_bst_completo.py
-│   ├── teste_escal.py
-│   ├── teste_visualizacao.py
-│   └── comparacao_algoritmos.py
-│
-├── requirements.txt
-└── README.md
-```
-
----
-
-# Tecnologias Utilizadas
-
-* Python 3.14
-* Matplotlib
-* NetworkX
-* Pandas
-* Pytest
-* Tracemalloc
+* Organizar municípios por nível de risco utilizando Árvore Binária de Busca (BST);
+* Modelar redes de municípios através de grafos ponderados;
+* Encontrar rotas ótimas para deslocamento entre localidades;
+* Comparar uma abordagem gulosa (Dijkstra) com uma abordagem exaustiva (Força Bruta);
+* Avaliar desempenho computacional através de métricas experimentais;
+* Apoiar processos de tomada de decisão em cenários de desastres naturais.
 
 ---
 
@@ -95,29 +44,25 @@ global-solution-2026-fund/
 
 ## Árvore Binária de Busca (BST)
 
-A BST foi utilizada para armazenar os municípios de acordo com seu índice de risco.
+A BST foi utilizada para organizar os municípios de acordo com seus índices de risco.
 
 Funcionalidades implementadas:
 
-* Inserção
-* Busca por intervalo de risco
-* Percurso In-Order
-* Remoção
-* Cálculo de altura
+* Inserção;
+* Busca por intervalo de risco;
+* Percurso In-Order;
+* Remoção;
+* Cálculo de altura.
 
 ---
 
-## Grafos
+## Grafos Ponderados
 
 Os municípios foram modelados como vértices de um grafo ponderado.
 
-As arestas representam conexões entre municípios e os pesos representam o custo de deslocamento.
+As arestas representam conexões entre municípios e os pesos representam custos de deslocamento entre localidades.
 
-Exemplo:
-
-```text
-Porto Alegre ----- Novo Hamburgo ----- Caxias do Sul
-```
+Essa estrutura permite representar cenários reais de logística e distribuição de recursos em situações emergenciais.
 
 ---
 
@@ -129,9 +74,10 @@ Utilizado para encontrar o caminho de menor custo entre dois municípios.
 
 Características:
 
-* Complexidade aproximada: O((V + E) log V)
-* Garante solução ótima para pesos positivos
-* Excelente escalabilidade
+* Complexidade aproximada: O((V + E) log V);
+* Garante solução ótima para pesos positivos;
+* Excelente escalabilidade;
+* Adequado para redes de grande porte.
 
 ---
 
@@ -141,74 +87,128 @@ Implementado utilizando recursão e backtracking.
 
 Características:
 
-* Enumeração de todos os caminhos possíveis
-* Garante solução ótima
-* Alto custo computacional
-* Crescimento exponencial
+* Enumeração de todos os caminhos possíveis;
+* Garante solução ótima;
+* Crescimento exponencial;
+* Aplicável apenas em instâncias pequenas.
 
 ---
 
-# Experimentos
+# Estrutura do Projeto
 
-Foram realizados testes comparando Dijkstra e Força Bruta.
+```text
+global-solution-2026-fund/
+│
+├── data/
+│   ├── raw/
+│   │   ├── municipios_rs.py
+│   │   └── municipios_matopiba.py
+│   │
+│   └── processed/
+│       ├── grafo_rs.py
+│       └── grafo_matopiba.py
+│
+├── notebooks/
+│   └── analise_resultados.ipynb
+│
+├── report/
+│   ├── bst_matopiba.png
+│   ├── bst_municipios.png
+│   ├── grafo_municipios.png
+│   ├── grafo_matopiba.png
+│   ├── tempo_x_n.png
+│   ├── gap_otimalidade.png
+│   ├── caminhos_x_n.png
+│   ├── recursao_x_n.png
+│   └── relatorio_final.pdf
+│
+├── src/
+│   ├── brute_force.py
+│   ├── data_structures.py
+│   ├── graph_generator.py
+│   ├── greedy.py
+│   ├── performance_monitor.py
+│   └── visualizations.py
+│
+├── tests/
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+---
+
+# Experimentos Realizados
+
+Foram realizados experimentos para comparar os algoritmos Dijkstra e Força Bruta.
 
 ## Tempo Médio de Execução
 
 | N  | Dijkstra (ms) | Força Bruta (ms) |
-| -- | ------------: | ---------------: |
-| 5  |        0.0185 |           0.0673 |
-| 8  |        0.0284 |           0.5949 |
-| 10 |        0.0362 |           3.7801 |
-| 12 |        0.0481 |          24.2847 |
+| -- | ------------- | ---------------- |
+| 5  | 0.0185        | 0.0673           |
+| 8  | 0.0284        | 0.5949           |
+| 10 | 0.0362        | 3.7801           |
+| 12 | 0.0481        | 24.2847          |
 
-Observa-se que o algoritmo de Força Bruta apresenta crescimento exponencial, enquanto o algoritmo de Dijkstra mantém desempenho estável mesmo com o aumento da quantidade de vértices.
+Os resultados demonstram crescimento controlado para o algoritmo de Dijkstra e crescimento exponencial para a abordagem de Força Bruta.
 
 ---
 
 # Resultados Obtidos
 
-## Melhor Caminho Encontrado
+## Cenário Rio Grande do Sul
 
-Origem:
+Origem: Porto Alegre
 
-```text
-Porto Alegre
-```
+Destino: Caxias do Sul
 
-Destino:
+Melhor caminho encontrado:
 
-```text
-Caxias do Sul
-```
+Porto Alegre → Novo Hamburgo → Caxias do Sul
 
-Caminho ótimo:
-
-```text
-Porto Alegre
-→ Novo Hamburgo
-→ Caxias do Sul
-```
-
-Custo total:
-
-```text
-2.4
-```
-
-Tanto o algoritmo de Força Bruta quanto o algoritmo de Dijkstra encontraram a mesma solução ótima.
+Custo total: 2.4
 
 ---
 
-# Visualizações
+## Cenário MATOPIBA
+
+Origem: Balsas
+
+Destino: São Desidério
+
+Melhor caminho encontrado:
+
+Balsas → Uruçuí → Luís Eduardo Magalhães → São Desidério
+
+Custo total: 4.1
+
+---
+
+# Escala de Decisão
+
+| Situação              | Recomendação            |
+| --------------------- | ----------------------- |
+| Redes pequenas        | Força Bruta ou Dijkstra |
+| Redes médias          | Dijkstra                |
+| Redes grandes         | Dijkstra                |
+| Validação de soluções | Força Bruta             |
+| Aplicações reais      | Dijkstra                |
+
+---
+
+# Visualizações Geradas
 
 O projeto gera automaticamente:
 
-* Grafo dos municípios;
+* BST dos municípios por índice de risco;
+* Grafo do cenário Rio Grande do Sul;
+* Grafo do cenário MATOPIBA;
 * Gráfico Tempo × Número de Vértices;
-* Gráfico Gap de Otimalidade;
-* Comparações de desempenho.
+* Gráfico Gap de Otimalidade.
 
-As imagens são armazenadas na pasta:
+Todos os arquivos são armazenados na pasta:
 
 ```text
 report/
@@ -216,45 +216,56 @@ report/
 
 ---
 
+# Tecnologias Utilizadas
+
+* Python 3.14
+* Pandas
+* Matplotlib
+* NetworkX
+* Pytest
+* Tracemalloc
+
+---
+
 # Como Executar
 
-## 1. Clonar o repositório
+## Clonar o repositório
 
 ```bash
 git clone https://github.com/KimKristy/global-solution-2026-fund.git
 ```
 
-## 2. Acessar a pasta
+## Entrar na pasta
 
 ```bash
 cd global-solution-2026-fund
 ```
 
-## 3. Instalar dependências
+## Instalar dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 4. Executar testes
+## Executar testes
 
 ```bash
-python tests/teste_bst_completo.py
-
-python tests/teste_visualizacao.py
-
-python tests/teste_escal.py
-
-python tests/comparacao_algoritmos.py
+python -m tests.teste_bst_completo
+python -m tests.teste_visualizacao
+python -m tests.teste_escal
+python -m tests.comparacao_algoritmos
+python -m tests.teste_matopiba
 ```
 
 ---
 
 # Conclusão
 
-Os resultados demonstram que o algoritmo de Dijkstra é significativamente mais eficiente do que a abordagem de Força Bruta para o problema de roteamento entre municípios afetados por enchentes.
+O projeto demonstrou a aplicação prática de Árvores Binárias de Busca, Grafos Ponderados e algoritmos de otimização em cenários de desastres ambientais.
 
-Embora ambos os métodos encontrem a solução ótima, a abordagem gulosa apresenta melhor escalabilidade, tornando-se mais adequada para aplicações reais de resposta a desastres naturais.
+Os resultados evidenciaram que o algoritmo de Dijkstra apresenta desempenho significativamente superior à abordagem de Força Bruta, mantendo a qualidade das soluções encontradas.
+
+A aplicação em dois cenários distintos — enchentes no Rio Grande do Sul e seca na região MATOPIBA — demonstrou a flexibilidade da solução proposta e sua capacidade de apoiar processos de tomada de decisão em diferentes contextos de risco ambiental.
 
 ---
 
@@ -262,13 +273,16 @@ Embora ambos os métodos encontrem a solução ótima, a abordagem gulosa aprese
 
 CORMEN, T. H. et al. Introduction to Algorithms. MIT Press.
 
-GOODRICH, Michael T.; TAMASSIA, Roberto. Estruturas de Dados e Algoritmos em Java.
+GOODRICH, Michael T.; TAMASSIA, Roberto. Estruturas de Dados e Algoritmos.
 
-Documentação Oficial Python:
+Python Software Foundation. Python Documentation.
+
 https://docs.python.org/
 
-NetworkX Documentation:
+NetworkX Documentation.
+
 https://networkx.org/
 
-Matplotlib Documentation:
+Matplotlib Documentation.
+
 https://matplotlib.org/

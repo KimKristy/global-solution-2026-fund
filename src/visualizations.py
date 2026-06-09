@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 # ==========================================
-# DADOS DOS MUNICÍPIOS
+# DADOS DOS MUNICÍPIOS - RIO GRANDE DO SUL
 # ==========================================
 
 MUNICIPIOS = {
@@ -17,6 +17,23 @@ MUNICIPIOS = {
     4323002: ("Viamão", 0.80),
     4316808: ("Santa Maria", 0.65),
     4303509: ("Campo Bom", 0.75)
+}
+
+# ==========================================
+# DADOS DOS MUNICÍPIOS - MATOPIBA
+# ==========================================
+
+MUNICIPIOS_MATOPIBA = {
+    1001: ("Balsas", 0.92),
+    1002: ("Uruçuí", 0.88),
+    1003: ("Bom Jesus", 0.85),
+    1004: ("Barreiras", 0.82),
+    1005: ("Luís Eduardo Magalhães", 0.80),
+    1006: ("Formosa do Rio Preto", 0.76),
+    1007: ("Tasso Fragoso", 0.73),
+    1008: ("Corrente", 0.70),
+    1009: ("Riachão das Neves", 0.67),
+    1010: ("São Desidério", 0.64)
 }
 
 
@@ -36,29 +53,25 @@ def obter_cor(risco):
 
 
 # ==========================================
-# GRAFO DOS MUNICÍPIOS
+# GRAFO DOS MUNICÍPIOS - RIO GRANDE DO SUL E MATOPIBA
 # ==========================================
+
 
 def desenhar_grafo(grafo, caminho_destacado=None):
 
     G = nx.Graph()
 
     for origem in grafo:
-
         for destino, peso in grafo[origem]:
-
-            G.add_edge(
-                origem,
-                destino,
-                weight=peso
-            )
+            G.add_edge(origem, destino, weight=peso)
 
     plt.figure(figsize=(16, 10))
 
     pos = nx.spring_layout(
         G,
         seed=42,
-        k=1.2
+        k=2.5,
+        iterations=110
     )
 
     labels = {
@@ -67,10 +80,8 @@ def desenhar_grafo(grafo, caminho_destacado=None):
     }
 
     cores = [
-        obter_cor(
-            MUNICIPIOS[vertice][1]
-        )
-        for vertice in G.nodes()
+        obter_cor(MUNICIPIOS[v][1])
+        for v in G.nodes()
     ]
 
     nx.draw_networkx_nodes(
@@ -100,31 +111,19 @@ def desenhar_grafo(grafo, caminho_destacado=None):
     )
 
     nx.draw_networkx_edge_labels(
-    G,
-    pos,
-    edge_labels=pesos,
-    font_size=9,
-    label_pos=0.35,
-    bbox=dict(
-        facecolor="white",
-        edgecolor="none",
-        alpha=0.8
+        G,
+        pos,
+        edge_labels=pesos
     )
-    )
-
-    # ======================================
-    # DESTACA O CAMINHO DO DIJKSTRA
-    # ======================================
 
     if caminho_destacado:
 
-        arestas_caminho = []
+        arestas = []
 
         for i in range(
             len(caminho_destacado) - 1
         ):
-
-            arestas_caminho.append(
+            arestas.append(
                 (
                     caminho_destacado[i],
                     caminho_destacado[i + 1]
@@ -134,13 +133,13 @@ def desenhar_grafo(grafo, caminho_destacado=None):
         nx.draw_networkx_edges(
             G,
             pos,
-            edgelist=arestas_caminho,
+            edgelist=arestas,
             width=2,
             edge_color="blue"
         )
 
     plt.title(
-        "Rede de Municípios do Rio Grande do Sul",
+        "Figura 1 – Rede de Municípios do Rio Grande do Sul",
         fontsize=16,
         fontweight="bold"
     )
@@ -148,19 +147,129 @@ def desenhar_grafo(grafo, caminho_destacado=None):
     plt.figtext(
         0.5,
         0.01,
-        "Fonte: Dados sintéticos baseados em municípios afetados pelas enchentes do RS.",
+        "Fonte: Dados sintéticos baseados nas enchentes do RS.",
         ha="center",
         fontsize=9
     )
 
-    plt.tight_layout()
-
-    plt.subplots_adjust(
-    bottom = 0.10
-    )
+    plt.subplots_adjust(bottom=0.10)
 
     plt.savefig(
         "report/grafo_municipios.png",
+        dpi=300,
+        bbox_inches="tight"
+    )
+
+    plt.show()
+
+def desenhar_grafo_matopiba(
+    grafo,
+    caminho_destacado=None
+):
+
+    G = nx.Graph()
+
+    for origem in grafo:
+        for destino, peso in grafo[origem]:
+            G.add_edge(
+                origem,
+                destino,
+                weight=peso
+            )
+
+    plt.figure(figsize=(16, 10))
+
+    pos = nx.spring_layout(
+        G,
+        seed=42,
+        k=2.5,
+        iterations=200
+    )
+
+    labels = {
+        codigo: MUNICIPIOS_MATOPIBA[codigo][0]
+        for codigo in MUNICIPIOS_MATOPIBA
+    }
+
+    cores = [
+        obter_cor(
+            MUNICIPIOS_MATOPIBA[v][1]
+        )
+        for v in G.nodes()
+    ]
+
+    nx.draw_networkx_nodes(
+        G,
+        pos,
+        node_color=cores,
+        node_size=3000
+    )
+
+    nx.draw_networkx_labels(
+        G,
+        pos,
+        labels,
+        font_size=8,
+        font_weight="bold"
+    )
+
+    nx.draw_networkx_edges(
+        G,
+        pos,
+        width=2
+    )
+
+    pesos = nx.get_edge_attributes(
+        G,
+        "weight"
+    )
+
+    nx.draw_networkx_edge_labels(
+        G,
+        pos,
+        edge_labels=pesos
+    )
+
+    if caminho_destacado:
+
+        arestas = []
+
+        for i in range(
+            len(caminho_destacado) - 1
+        ):
+            arestas.append(
+                (
+                    caminho_destacado[i],
+                    caminho_destacado[i + 1]
+                )
+            )
+
+        nx.draw_networkx_edges(
+            G,
+            pos,
+            edgelist=arestas,
+            width=2,
+            edge_color="blue"
+        )
+
+    plt.title(
+        "Figura 5 – Rede de Municípios da Região MATOPIBA",
+        fontsize=16,
+        fontweight="bold"
+    )
+
+    plt.figtext(
+        0.5,
+        0.01,
+        "Fonte: Dados sintéticos baseados na região MATOPIBA.",
+        ha="center",
+        fontsize=9
+    )
+
+    plt.subplots_adjust(bottom=0.10)
+
+    plt.savefig(
+        "report/grafo_matopiba.png",
         dpi=300,
         bbox_inches="tight"
     )
@@ -197,8 +306,21 @@ def grafico_tempo(
     )
 
     plt.title(
-        "Tempo de Execução × Número de Vértices",
-        fontsize=15
+    "Figura 3 – Comparação de Tempo de Execução",
+    fontsize=15,
+    fontweight="bold"
+    )
+
+    plt.figtext(
+    0.5,
+    0.01,
+    "Fonte: Resultados experimentais obtidos pelos algoritmos implementados.",
+    ha="center",
+    fontsize=9
+    )
+
+    plt.subplots_adjust(
+    bottom=0.12
     )
 
     plt.xlabel(
@@ -241,8 +363,25 @@ def grafico_gap(
     )
 
     plt.title(
-        "Gap de Otimalidade (%)",
-        fontsize=15
+    "Figura 4 – Gap de Otimalidade",
+    fontsize=15,
+    fontweight="bold"
+    )
+
+    plt.legend(
+    ["Gap (%)"]
+    )
+
+    plt.figtext(
+        0.5,
+        0.01,
+        "Fonte: Resultados experimentais obtidos a partir da execução dos algoritmos Dijkstra e Força Bruta.",
+        ha="center",
+        fontsize=9
+    )
+
+    plt.subplots_adjust(
+        bottom=0.12
     )
 
     plt.xlabel(
@@ -265,7 +404,9 @@ def grafico_gap(
 
 from collections import deque
 
-def desenhar_bst(root):
+def desenhar_bst(root,
+    arquivo_saida="report/bst_municipios.png"
+):
 
     if root is None:
         return
@@ -322,8 +463,8 @@ def desenhar_bst(root):
     pos = nx.spring_layout(
         G,
         seed=42,
-        k=3.0,
-        iterations=100
+        k=1.0,
+        iterations=10
     )
 
     nx.draw(
@@ -335,13 +476,27 @@ def desenhar_bst(root):
     )
 
     plt.title(
-        "BST dos Municípios por Índice de Risco"
+    "Figura 2 – Árvore Binária de Busca Ordenada por Índice de Risco",
+    fontsize=15,
+    fontweight="bold"
+    )
+
+    plt.figtext(
+    0.5,
+    0.01,
+    "Fonte: Dados sintéticos utilizados no projeto.",
+    ha="center",
+    fontsize=9
+    )
+
+    plt.subplots_adjust(
+    bottom=0.08
     )
 
     plt.savefig(
-        "report/bst_municipios.png",
-        dpi=300,
-        bbox_inches="tight"
+    arquivo_saida,
+    dpi=300,
+    bbox_inches="tight"
     )
 
     plt.show()
